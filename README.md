@@ -1,8 +1,4 @@
 ## Deployment
-kp secret create tbs-harbor-secret --registry harbor.haas-436.pez.vmware.com --registry-user admin
-kp secret create tbs-git-secret --git-url https://gitlab.com --git-user oawofolu
-kp image create tbsdemo --tag oawofolu/image-analytics-training --namespace default --wait --git “https://gitlab.com/oawofolu/tbs-demo.git”
-
 * Create a Docker secret for the target container registry:
 ```
 source .env
