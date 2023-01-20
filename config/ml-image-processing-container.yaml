@@ -1,0 +1,13 @@
+apiVersion: kpack.io/v1alpha2
+kind: Image
+metadata:
+  name: imgprocessor_image
+spec:
+  tag: oawofolu/ml-image-processor
+  builder:
+    kind: ClusterBuilder
+    name: base
+  source:
+    git:
+      url: https://github.com/agapebondservant/ml-image-processing-app-pipelines.git
+      revision: main
