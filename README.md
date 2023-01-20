@@ -18,11 +18,21 @@ envsubst < config/ml-image-processing-container.in.yaml > config/ml-image-proces
 kubectl apply -f config/ml-image-processing-container.yaml
 ```
 
-* Build the images via kp:
+* Tail the logs: (must install kp cli - see <a href="https://github.com/vmware-tanzu/kpack-cli/blob/v0.2.0/docs/kp.md">link</a>)
+```
+kp build logs imgprocessor
+```
+
+* Build the images via kp (alternaitve approach):
 ```
 kp image create tbsdemo --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor  \
         --namespace default \
         --wait \
         --git “https://github.com/agapebondservant/ml-image-processing-app-pipelines.git”
         --git-revision "main"
+```
+
+To delete the image:
+```
+kubectl delete -f config/ml-image-processing-container.yaml
 ```
