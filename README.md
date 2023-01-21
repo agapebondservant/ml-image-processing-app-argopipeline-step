@@ -25,7 +25,7 @@ kp build logs imgprocessor
 
 * Build the images via kp (alternaitve approach):
 ```
-kp image create tbsdemo --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor  \
+kp image create imgprocessor --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor  \
         --namespace default \
         --wait \
         --git “https://github.com/agapebondservant/ml-image-processing-app-pipelines.git”
