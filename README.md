@@ -23,7 +23,7 @@ kubectl apply -f config/ml-image-processing-container.yaml
 kp build logs imgprocessor
 ```
 
-* Build the images via kp (alternaitve approach):
+* Build the images via kp (alternative approach):
 ```
 kp image create imgprocessor --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor  \
         --namespace default \
