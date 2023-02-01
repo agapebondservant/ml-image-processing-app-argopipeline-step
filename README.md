@@ -25,11 +25,20 @@ kp build logs imgprocessor
 
 * Build the images via kp (alternative approach):
 ```
+source .env
 kp image create imgprocessor --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor  \
         --namespace default \
         --wait \
-        --git “https://github.com/agapebondservant/ml-image-processing-app-pipelines.git”
+        --env MLFLOW_TRACKING_URI_VAL=mlflow.${DATA_E2E_BASE_URL} \
+        --git “https://github.com/agapebondservant/ml-image-processing-app-pipelines.git” \
         --git-revision "main"
+```
+
+* Build the images via docker (alternative approach):
+```
+source .env
+docker build --build-arg MLFLOW_TRACKING_URI_VAL=mlflow.${DATA_E2E_BASE_URL} -t ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor .
+docker push ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor
 ```
 
 To delete the image:
