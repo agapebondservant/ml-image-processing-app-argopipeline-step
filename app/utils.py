@@ -13,7 +13,7 @@ def get_cmd_arg(name):
             d[cmd_arg[0].lstrip('-')].append(cmd_arg[1])
 
     if name in d:
-        return d[name][0]
+        return str(d[name][0])
     else:
         logging.info('Unknown command line arg requested: {}'.format(name))
 

@@ -20,7 +20,7 @@ try:
 
         submitted_run = mlflow.run(git_repo,
                                    entry_point,
-                                   version='main' if stage == 'None' else stage.lower(),
+                                   version='main' if stage.lower() == 'none' else stage.lower(),
                                    env_manager='local',
                                    parameters={'model-stage': stage})
 
