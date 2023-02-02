@@ -10,7 +10,7 @@ def get_cmd_arg(name):
     for cmd_args in sys.argv[1:]:
         cmd_arg = cmd_args.split('=')
         if len(cmd_arg) == 2:
-            d[cmd_arg[0].lstrip('-')].append(cmd_arg[1])
+            d[cmd_arg[0].lstrip('-')].append(cmd_arg[1].replace('"', ''))
 
     if name in d:
         return str(d[name][0])
