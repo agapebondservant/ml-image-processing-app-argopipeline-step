@@ -18,3 +18,5 @@ spec:
     env:
       - name: "MLFLOW_TRACKING_URI"
         value: http://mlflow.${DATA_E2E_BASE_URL}
+      - name: "MLFLOW_S3_ENDPOINT_URL"
+        value: http://minio-ml.${DATA_E2E_BASE_URL}
