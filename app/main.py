@@ -17,7 +17,7 @@ try:
     logging.info(f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
     logging.info(f"MLFlow Tracking URI is {os.environ['MLFLOW_TRACKING_URI']}")
 
-    with mlflow.start_run(run_name='start') as active_run:
+    with mlflow.start_run(run_name='start', nested=True) as active_run:
 
         submitted_run = mlflow.run(git_repo,
                                    entry_point,
