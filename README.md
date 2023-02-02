@@ -29,7 +29,7 @@ source .env
 kp image create imgprocessor --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor  \
         --namespace default \
         --wait \
-        --env MLFLOW_TRACKING_URI_VAL=mlflow.${DATA_E2E_BASE_URL} \
+        --env MLFLOW_TRACKING_URI_VAL=http://mlflow.${DATA_E2E_BASE_URL} \
         --git “https://github.com/agapebondservant/ml-image-processing-app-pipelines.git” \
         --git-revision "main"
 ```
@@ -37,7 +37,7 @@ kp image create imgprocessor --tag ${DATA_E2E_REGISTRY_USERNAME}/ml-image-proces
 * Build the images via docker (alternative approach):
 ```
 source .env
-docker build --build-arg MLFLOW_TRACKING_URI_VAL=mlflow.${DATA_E2E_BASE_URL} -t ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor .
+docker build --build-arg MLFLOW_TRACKING_URI_VAL=http://mlflow.${DATA_E2E_BASE_URL} -t ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor .
 docker push ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor
 ```
 

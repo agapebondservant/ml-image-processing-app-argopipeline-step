@@ -17,4 +17,4 @@ spec:
   build:
     env:
       - name: "MLFLOW_TRACKING_URI"
-        value: mlflow.${DATA_E2E_BASE_URL}
+        value: http://mlflow.${DATA_E2E_BASE_URL}
