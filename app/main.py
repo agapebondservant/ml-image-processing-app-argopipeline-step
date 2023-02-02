@@ -9,7 +9,8 @@ try:
     git_repo = utils.get_cmd_arg("git_repo")
     entry_point = utils.get_cmd_arg("mlflow_entry")
     stage = utils.get_cmd_arg("mlflow_stage")
-    experiment_name = f"{utils.get_cmd_arg('experiment_name')}_{stage}"
+    environment_name = utils.get_cmd_arg("environment_name")
+    experiment_name = utils.get_cmd_arg('experiment_name')
 
     logging.info(f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
 
@@ -17,7 +18,7 @@ try:
 
         submitted_run = mlflow.run(git_repo,
                                    entry_point,
-                                   version='main' if stage.lower() == 'none' else stage.lower(),
+                                   version=environment_name,
                                    env_manager='local',
                                    parameters={'model-stage': stage})
 
