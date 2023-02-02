@@ -3,6 +3,7 @@ import logging
 from mlflow import MlflowClient
 import traceback
 import utils
+import os
 
 try:
     logging.getLogger().setLevel(logging.INFO)
@@ -13,6 +14,8 @@ try:
     experiment_name = utils.get_cmd_arg('experiment_name')
 
     logging.info(f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
+
+    os.environ['MLFLOW_EXPERIMENT_NAME'] = environment_name
 
     with mlflow.start_run(run_name='start', nested=True) as active_run:
 
