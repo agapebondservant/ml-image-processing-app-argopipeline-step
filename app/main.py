@@ -17,7 +17,7 @@ try:
 
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
 
-    with mlflow.start_run(run_name='start', nested=True) as active_run:
+    with mlflow.start_run(run_name=f'start-{experiment_name}', nested=True) as active_run:
 
         submitted_run = mlflow.run(git_repo,
                                    entry_point,
