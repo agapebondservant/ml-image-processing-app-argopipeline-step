@@ -5,6 +5,19 @@ import traceback
 import utils
 import os
 
+
+def get_root_run(active_run_id=None, experiment_names=None):
+    runs = mlflow.search_runs(experiment_names=experiment_names, filter_string="tags.runlevel='root'", max_results=1,
+                              output_format='list')
+    if len(runs):
+        parent_run_id = runs[0].info.run_id
+        mlflow.set_tags({'mlflow.parentRunId': parent_run_id})
+        return parent_run_id
+    else:
+        mlflow.set_tags({'runlevel': 'root'})
+        return active_run_id
+
+
 try:
     logging.getLogger().setLevel(logging.INFO)
     git_repo = utils.get_cmd_arg("git_repo")
@@ -12,13 +25,12 @@ try:
     stage = utils.get_cmd_arg("mlflow_stage")
     environment_name = utils.get_cmd_arg("environment_name")
     experiment_name = utils.get_cmd_arg('experiment_name')
-
-    logging.info(f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
-
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
+    logging.info(
+        f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
 
-    with mlflow.start_run(run_name=f'start-{experiment_name}', nested=True) as active_run:
-
+    with mlflow.start_run(nested=True) as active_run:
+        os.environ['MLFLOW_RUN_ID'] = get_root_run(active_run_id=active_run, experiment_names=None)
         submitted_run = mlflow.run(git_repo,
                                    entry_point,
                                    version=environment_name,
