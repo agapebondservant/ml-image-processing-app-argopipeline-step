@@ -30,7 +30,7 @@ try:
         f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
 
     with mlflow.start_run(nested=True) as active_run:
-        os.environ['MLFLOW_RUN_ID'] = get_root_run(active_run_id=active_run, experiment_names=None)
+        os.environ['MLFLOW_RUN_ID'] = get_root_run(active_run_id=active_run.info.run_id, experiment_names=None)
         submitted_run = mlflow.run(git_repo,
                                    entry_point,
                                    version=environment_name,
