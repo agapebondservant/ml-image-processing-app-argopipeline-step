@@ -39,3 +39,4 @@ pyarrow<7.0.0
 hickle
 find-libpython
 python-multipart
+evidently
