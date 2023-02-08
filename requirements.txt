@@ -40,3 +40,4 @@ hickle
 find-libpython
 python-multipart
 evidently
+sqlite3
