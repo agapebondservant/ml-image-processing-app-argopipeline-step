@@ -41,3 +41,4 @@ find-libpython
 python-multipart
 evidently
 pysqlite3-binary
+kfp
