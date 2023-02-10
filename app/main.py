@@ -27,7 +27,7 @@ try:
     experiment_name = utils.get_cmd_arg('experiment_name')
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
     logging.info(
-        f"Printing arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
+        f"Printing the arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
 
     with mlflow.start_run(nested=True) as active_run:
         os.environ['MLFLOW_RUN_ID'] = get_root_run(active_run_id=active_run.info.run_id, experiment_names=[experiment_name])
