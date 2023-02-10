@@ -6,10 +6,10 @@ spec:
   tag: ${DATA_E2E_REGISTRY_USERNAME}/ml-image-processor
   builder:
     kind: ClusterBuilder
-    name: base
+    name: full
   source:
     git:
-      url: https://github.com/agapebondservant/ml-image-processing-app-pipelines.git
+      url: https://github.com/agapebondservant/ml-image-processing-app-argopipelines.git
       revision: main
   cache:
     volume:
