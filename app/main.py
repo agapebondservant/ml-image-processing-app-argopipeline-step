@@ -20,11 +20,14 @@ def get_root_run(active_run_id=None, experiment_names=None):
 
 try:
     logging.getLogger().setLevel(logging.INFO)
+    client = MlflowClient()
     git_repo = utils.get_cmd_arg("git_repo")
     entry_point = utils.get_cmd_arg("mlflow_entry")
     stage = utils.get_cmd_arg("mlflow_stage")
     environment_name = utils.get_cmd_arg("environment_name")
     experiment_name = utils.get_cmd_arg('experiment_name')
+    if client.get_experiment_by_name(experiment_name) is None:
+        client.create_experiment(experiment_name)
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
     logging.info(
         f"Printing the arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")

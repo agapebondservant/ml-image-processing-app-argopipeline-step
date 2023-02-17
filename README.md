@@ -2,7 +2,7 @@
 * Create a Docker secret for the target container registry:
 ```
 source .env
-REGISTRY_PASSWORD=$DATA_E2E_REGISTRY_PASSWORD kp secret create tbs-demo-docker-secret --dockerhub ${DATA_E2E_REGISTRY_USERNAME}
+DOCKER_PASSWORD=$DATA_E2E_REGISTRY_PASSWORD kp secret create tbs-demo-docker-secret --dockerhub ${DATA_E2E_REGISTRY_USERNAME}
 ```
 
 * Create a Git secret for the source git repository:
