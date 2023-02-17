@@ -26,8 +26,6 @@ try:
     stage = utils.get_cmd_arg("mlflow_stage")
     environment_name = utils.get_cmd_arg("environment_name")
     experiment_name = utils.get_cmd_arg('experiment_name')
-    if client.get_experiment_by_name(experiment_name) is None:
-        client.create_experiment(experiment_name)
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
     logging.info(
         f"Printing the arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
