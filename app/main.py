@@ -2,7 +2,7 @@ import mlflow
 import logging
 from mlflow import MlflowClient
 import traceback
-import utils
+from . import utils
 import os
 
 
