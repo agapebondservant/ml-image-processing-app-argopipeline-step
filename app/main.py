@@ -4,6 +4,7 @@ from mlflow import MlflowClient
 import traceback
 from . import utils
 import os
+import sys
 
 
 def get_root_run(active_run_id=None, experiment_names=None):
@@ -45,15 +46,18 @@ try:
 except mlflow.exceptions.RestException as e:
     logging.info('REST exception occurred (platform will retry based on pre-configured retry policy): ', exc_info=True)
     logging.info(traceback.format_exc())
+    logging.info(sys.exc_info())
 
 except mlflow.exceptions.ExecutionException as ee:
     logging.info("An ExecutionException occurred...", exc_info=True)
     logging.info(str(ee))
     logging.info(traceback.format_exc())
+    logging.info(sys.exc_info())
 
 except BaseException as be:
     logging.info("An unexpected error occurred...", exc_info=True)
     logging.info(str(be))
     logging.info(traceback.format_exc())
+    logging.info(sys.exc_info())
 
 logging.info("End script.")
