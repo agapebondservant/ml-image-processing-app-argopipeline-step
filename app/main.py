@@ -44,16 +44,16 @@ try:
 
 except mlflow.exceptions.RestException as e:
     logging.info('REST exception occurred (platform will retry based on pre-configured retry policy): ', exc_info=True)
-    traceback.print_exc()
+    logging.info(traceback.format_exc())
 
 except mlflow.exceptions.ExecutionException as ee:
     logging.info("An ExecutionException occurred...", exc_info=True)
     logging.info(str(ee))
-    traceback.print_exc()
+    logging.info(traceback.format_exc())
 
 except BaseException as be:
     logging.info("An unexpected error occurred...", exc_info=True)
     logging.info(str(be))
-    traceback.print_exc()
+    logging.info(traceback.format_exc())
 
 logging.info("End script.")
