@@ -1,10 +1,11 @@
 import mlflow
-import logging
 from mlflow import MlflowClient
 import traceback
-from . import utils
-import os
+import logging
+from collections import defaultdict
 import sys
+import os
+import re
 
 
 def get_root_run(active_run_id=None, experiment_names=None):
@@ -19,17 +20,42 @@ def get_root_run(active_run_id=None, experiment_names=None):
         return active_run_id
 
 
+def get_cmd_arg(name):
+    d = defaultdict(list)
+    for cmd_args in sys.argv[1:]:
+        cmd_arg = cmd_args.split('=')
+        if len(cmd_arg) == 2:
+            d[cmd_arg[0].lstrip('-')].append(cmd_arg[1].replace('"', ''))
+
+    if name in d:
+        return str(d[name][0])
+    else:
+        logging.info('Unknown command line arg requested: {}'.format(name))
+
+
+def get_env_var(name):
+    if name in os.environ:
+        value = os.environ[name]
+        return int(value) if re.match("\d+$", value) else value
+    else:
+        logging.info('Unknown environment variable requested: {}'.format(name))
+
+
+def get_cmd_arg_or_env_var(name):
+    return get_cmd_arg(name) or get_env_var(name)
+
+
 try:
     logging.getLogger().setLevel(logging.INFO)
     client = MlflowClient()
-    git_repo = utils.get_cmd_arg_or_env_var("git_repo")
-    entry_point = utils.get_cmd_arg_or_env_var("mlflow_entry")
-    stage = utils.get_cmd_arg_or_env_var("mlflow_stage")
-    environment_name = utils.get_cmd_arg_or_env_var("environment_name")
-    experiment_name = utils.get_cmd_arg_or_env_var('experiment_name')
+    git_repo = get_cmd_arg_or_env_var("git_repo")
+    entry_point = get_cmd_arg_or_env_var("mlflow_entry")
+    stage = get_cmd_arg_or_env_var("mlflow_stage")
+    environment_name = get_cmd_arg_or_env_var("environment_name")
+    experiment_name = get_cmd_arg_or_env_var('experiment_name')
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
-    os.environ['MLFLOW_S3_ENDPOINT_URL'] = utils.get_cmd_arg('mlflow_s3_uri') or utils.get_env_var('MLFLOW_S3_ENDPOINT_URL')
-    os.environ['MLFLOW_TRACKING_URI'] = utils.get_cmd_arg('mlflow_tracking_uri') or utils.get_env_var('MLFLOW_TRACKING_URI')
+    os.environ['MLFLOW_S3_ENDPOINT_URL'] = get_cmd_arg('mlflow_s3_uri') or get_env_var('MLFLOW_S3_ENDPOINT_URL')
+    os.environ['MLFLOW_TRACKING_URI'] = get_cmd_arg('mlflow_tracking_uri') or get_env_var('MLFLOW_TRACKING_URI')
 
     logging.info(
         f"Printing the arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
