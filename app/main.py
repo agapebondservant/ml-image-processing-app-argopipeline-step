@@ -53,6 +53,7 @@ try:
     stage = get_cmd_arg_or_env_var("mlflow_stage")
     environment_name = get_cmd_arg_or_env_var("environment_name")
     experiment_name = get_cmd_arg_or_env_var('experiment_name')
+    client.get_experiment_by_name(experiment_name) or client.create_experiment(experiment_name)
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
     os.environ['MLFLOW_S3_ENDPOINT_URL'] = get_cmd_arg('mlflow_s3_uri') or get_env_var('MLFLOW_S3_ENDPOINT_URL')
     os.environ['MLFLOW_TRACKING_URI'] = get_cmd_arg('mlflow_tracking_uri') or get_env_var('MLFLOW_TRACKING_URI')
