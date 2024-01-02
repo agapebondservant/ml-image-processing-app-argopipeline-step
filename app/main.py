@@ -1,9 +1,11 @@
+import sys
+import importlib.metadata
+sys.modules['importlib_metadata'] = importlib.metadata
 import mlflow
 from mlflow import MlflowClient
 import traceback
 import logging
 from collections import defaultdict
-import sys
 import os
 import re
 
