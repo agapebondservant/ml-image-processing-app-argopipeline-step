@@ -59,6 +59,7 @@ try:
     os.environ['MLFLOW_EXPERIMENT_NAME'] = experiment_name
     os.environ['MLFLOW_S3_ENDPOINT_URL'] = get_cmd_arg('mlflow_s3_uri') or get_env_var('MLFLOW_S3_ENDPOINT_URL')
     os.environ['MLFLOW_TRACKING_URI'] = get_cmd_arg('mlflow_tracking_uri') or get_env_var('MLFLOW_TRACKING_URI')
+    os.environ["TF_USE_LEGACY_KERAS"] = "1"
 
     logging.info(
         f"Printing the arguments...git_repo={git_repo},experiment_name={experiment_name},entry_point={entry_point},stage={stage}")
